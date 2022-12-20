@@ -9,6 +9,7 @@ import tensorboard
 
 from clearml import Task
 import os
+import time
 
 os.environ['WANDB_API_KEY'] = 'e08ae8b88ab980fc97e670c026c961dd757a66f8'
 
@@ -21,7 +22,7 @@ env = gym.make('Pendulum-v1',g=9.81)
 run = wandb.init(project="sb3_pendulum_demo",sync_tensorboard=True)
 model = PPO('MlpPolicy', env, verbose=1, tensorboard_log=f"runs/{run.id}")
 wandb_callback = WandbCallback(model_save_freq=1000,
-                                model_save_path=f"models/{run.id}",
+                                model_save_path=f"models/{run.id}/{time.time()}",
                                 verbose=2,
                                 )
 
